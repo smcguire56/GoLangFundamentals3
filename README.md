@@ -1,6 +1,6 @@
 # Go Language Fundamentals 3
 
-This is a chat bot using regualr expressions in Go language.
+This is a chat bot using regular expressions in Go language.
 For GMIT's module Data Representation and Querying.
 From: https://data-representation.github.io/problems/go-regexp.html.
 
@@ -17,4 +17,5 @@ Once that is installed I recommend using Visual Studio Code VSC for writing and 
 6) Firstly to compile each Go file you must type "go build [insert_file_name_here]"
 7) After it compiles without any errors, an executable file will appear with that same file name.
 8) To run that file just type the full name of that executable file name in your terminal with the .exe at the end.
-9) And you’re  done! 
+9) The console will display the chat bots pre written questions and generate an answer in run time.
+10) You may ask the bot anything now in the console.

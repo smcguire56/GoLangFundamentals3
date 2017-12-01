@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -25,15 +27,26 @@ func main() {
 		"I am not sure that you understand the effect that your questions are having on me.",
 		"I am supposed to just take what you’re saying at face value?"}
 
-	//reader := bufio.NewReader(os.Stdin)
-	//text, _ := reader.ReadString('\n')
-
 	for i := 0; i < len(questions); i++ {
 		fmt.Print("You: ")
 		fmt.Println(questions[i])
 
 		fmt.Print("Eliza: ")
 		fmt.Println(ElizaResponse(questions[i]))
+	}
+
+	fmt.Print("Ask Eliza anything: ")
+
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+
+	fmt.Print("Eliza: ")
+	fmt.Println(ElizaResponse(text))
+
+	for text != "quit" {
+		text, _ := reader.ReadString('\n')
+		fmt.Print("Eliza: ")
+		fmt.Println(ElizaResponse(text))
 	}
 }
 
@@ -57,11 +70,11 @@ func ElizaResponse(text string) string {
 	text = strings.TrimRight(text, "\n.!")
 	text = strings.ToLower(text)
 
-	if matched, _ := regexp.MatchString(`(?i).*\bhello\b.*`, text); matched {
+	if matched, _ := regexp.MatchString(`(?i).*\bhello|hi|hey|yo\b.*`, text); matched {
 		return greetings[rand.Intn(len(greetings))]
 	}
 
-	if matched, _ := regexp.MatchString(`(?i).*\bbye\b.*`, text); matched {
+	if matched, _ := regexp.MatchString(`(?i).*\bbye|later|goodbye\b.*`, text); matched {
 		return goodbyes[rand.Intn(len(goodbyes))]
 	}
 
@@ -73,6 +86,17 @@ func ElizaResponse(text string) string {
 		return "why are " + Reflect(text)
 	}
 
+	if matched, _ := regexp.MatchString(`(?i).*\bgood|great|brilliant|happy|super|brilliant\b.*`, text); matched {
+		return "That's alright I guess... What do you want?"
+	}
+
+	if matched, _ := regexp.MatchString(`(?i).*\bweather|rain|cold|sad|sun|cloud\b.*`, text); matched {
+		return "It's a great day outside, what makes you happy?"
+	}
+
+	if matched, _ := regexp.MatchString(`(?i).*\bsport|soccer|rugby|game|mad|crazy|catch|saw\b.*`, text); matched {
+		return "Did you watch the ludicrous display last night on BBC?"
+	}
 	return response[rand.Intn(len(response))]
 }
 
